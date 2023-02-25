@@ -1,0 +1,221 @@
+{
+  "x-generator": "NSwag v13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/GroupRides": {
+      "get": {
+        "tags": [
+          "GroupRides"
+        ],
+        "operationId": "GroupRides_GetGroupRides",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GroupRide"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "GroupRides"
+        ],
+        "operationId": "GroupRides_PostGroupRide",
+        "parameters": [
+          {
+            "name": "groupRide",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/GroupRide"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GroupRide"
+            }
+          }
+        }
+      }
+    },
+    "/api/GroupRides/{id}": {
+      "get": {
+        "tags": [
+          "GroupRides"
+        ],
+        "operationId": "GroupRides_GetGroupRide",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/GroupRide"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "GroupRides"
+        ],
+        "operationId": "GroupRides_PutGroupRide",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "name": "groupRide",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/GroupRide"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "GroupRides"
+        ],
+        "operationId": "GroupRides_DeleteGroupRide",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GroupRide": {
+      "type": "object",
+      "required": [
+        "Id",
+        "DateTime",
+        "Location",
+        "RideType"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "DateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Location": {
+          "type": "string"
+        },
+        "BikeRoute": {
+          "$ref": "#/definitions/BikeRoute"
+        },
+        "BikeRouteId": {
+          "type": "string",
+          "format": "guid"
+        },
+        "RideType": {
+          "$ref": "#/definitions/RideType"
+        }
+      }
+    },
+    "BikeRoute": {
+      "type": "object",
+      "required": [
+        "Id",
+        "Distance",
+        "RideWithGPSUrl"
+      ],
+      "properties": {
+        "Id": {
+          "type": "string",
+          "format": "guid"
+        },
+        "Distance": {
+          "type": "number",
+          "format": "double"
+        },
+        "RideWithGPSUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "RideType": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "A",
+        "B2A",
+        "BSweaty",
+        "BChatty",
+        "C",
+        "D"
+      ],
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  }
+}
