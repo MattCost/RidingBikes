@@ -1,0 +1,20 @@
+{
+    "runtime": "Net60",
+    "documentGenerator": {
+        "fromDocument": {
+            "json": "../API/swagger.json"
+        }
+    },
+    "codeGenerators": {
+        "openApiToCSharpClient": {
+            "output": "ApiClient.g.cs",
+            "namespace": "RidingBikes.APIClient",
+            "generateClientClasses": true,
+            "generateClientInterfaces": true,
+            "GenerateDtoTypes" : true,
+            "operationGenerationMode": "SingleClientFromOperationId",
+            "AdditionalNamespaceUsages": [ "RidingBikes.Common.Models" ]
+            
+        }
+    }
+}
