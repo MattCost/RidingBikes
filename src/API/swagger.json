@@ -12,22 +12,167 @@
     "application/json"
   ],
   "paths": {
+    "/api/BikeRoutes": {
+      "get": {
+        "tags": [
+          "BikeRoutes"
+        ],
+        "operationId": "BikeRoutes_GetAllBikeRoutes",
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BikeRouteViewModel"
+              }
+            }
+          },
+          "404": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BikeRoutes"
+        ],
+        "operationId": "BikeRoutes_CreateBikeRoute",
+        "parameters": [
+          {
+            "name": "createModel",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BikeRouteCreateModel"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "409": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/BikeRoutes/{id}": {
+      "get": {
+        "tags": [
+          "BikeRoutes"
+        ],
+        "operationId": "BikeRoutes_GetBikeRoute",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/BikeRouteModel"
+            }
+          },
+          "404": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BikeRoutes"
+        ],
+        "operationId": "BikeRoutes_UpdateBikeRoute",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          },
+          {
+            "name": "updateModel",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/BikeRouteUpdateModel"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BikeRoutes"
+        ],
+        "operationId": "BikeRoutes_DeleteBikeRoute",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "format": "guid",
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "409": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/GroupRides": {
       "get": {
         "tags": [
           "GroupRides"
         ],
-        "operationId": "GroupRides_GetGroupRides",
+        "operationId": "GroupRides_GetAllGroupRides",
         "responses": {
           "200": {
-            "x-nullable": true,
+            "x-nullable": false,
             "description": "",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/GroupRide"
+                "$ref": "#/definitions/GroupRideViewModel"
               }
             }
+          },
+          "404": {
+            "description": ""
           }
         }
       },
@@ -35,24 +180,26 @@
         "tags": [
           "GroupRides"
         ],
-        "operationId": "GroupRides_PostGroupRide",
+        "operationId": "GroupRides_CreateGroupRide",
         "parameters": [
           {
-            "name": "groupRide",
+            "name": "createModel",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/GroupRide"
+              "$ref": "#/definitions/GroupRideCreateModel"
             },
             "x-nullable": false
           }
         ],
         "responses": {
-          "200": {
-            "x-nullable": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/GroupRide"
-            }
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
           }
         }
       }
@@ -75,11 +222,14 @@
         ],
         "responses": {
           "200": {
-            "x-nullable": true,
+            "x-nullable": false,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/GroupRide"
+              "$ref": "#/definitions/GroupRideViewModel"
             }
+          },
+          "404": {
+            "description": ""
           }
         }
       },
@@ -87,7 +237,7 @@
         "tags": [
           "GroupRides"
         ],
-        "operationId": "GroupRides_PutGroupRide",
+        "operationId": "GroupRides_UpdateGroupRide",
         "parameters": [
           {
             "type": "string",
@@ -98,21 +248,23 @@
             "x-nullable": false
           },
           {
-            "name": "groupRide",
+            "name": "groupRideUpdateModel",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/GroupRide"
+              "$ref": "#/definitions/GroupRideUpdateModel"
             },
             "x-nullable": false
           }
         ],
         "responses": {
-          "200": {
-            "x-nullable": true,
-            "description": "",
-            "schema": {
-              "type": "file"
-            }
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
           }
         }
       },
@@ -132,70 +284,140 @@
           }
         ],
         "responses": {
-          "200": {
-            "x-nullable": true,
-            "description": "",
-            "schema": {
-              "type": "file"
-            }
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
           }
         }
       }
     }
   },
   "definitions": {
-    "GroupRide": {
-      "type": "object",
-      "required": [
-        "Id",
-        "DateTime",
-        "Location",
-        "RideType"
-      ],
-      "properties": {
-        "Id": {
-          "type": "string",
-          "format": "guid"
+    "BikeRouteViewModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ViewModelBase"
         },
-        "DateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "Location": {
-          "type": "string"
-        },
-        "BikeRoute": {
-          "$ref": "#/definitions/BikeRoute"
-        },
-        "BikeRouteId": {
-          "type": "string",
-          "format": "guid"
-        },
-        "RideType": {
-          "$ref": "#/definitions/RideType"
+        {
+          "type": "object",
+          "required": [
+            "Distance",
+            "RideWithGPSUrl"
+          ],
+          "properties": {
+            "Distance": {
+              "type": "number",
+              "format": "double"
+            },
+            "RideWithGPSUrl": {
+              "type": "string"
+            }
+          }
         }
-      }
+      ]
     },
-    "BikeRoute": {
-      "type": "object",
-      "required": [
-        "Id",
-        "Distance",
-        "RideWithGPSUrl"
-      ],
-      "properties": {
-        "Id": {
-          "type": "string",
-          "format": "guid"
+    "ViewModelBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityModelBase"
         },
-        "Distance": {
-          "type": "number",
-          "format": "double"
-        },
-        "RideWithGPSUrl": {
-          "type": "string"
+        {
+          "type": "object",
+          "x-abstract": true
         }
-      }
+      ]
+    },
+    "EntityModelBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/SerializableBase"
+        },
+        {
+          "type": "object",
+          "x-abstract": true,
+          "required": [
+            "Id"
+          ],
+          "properties": {
+            "Id": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      ]
+    },
+    "SerializableBase": {
+      "type": "object",
+      "x-abstract": true
+    },
+    "BikeRouteModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityModelBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "Distance",
+            "RideWithGPSUrl",
+            "GroupRides"
+          ],
+          "properties": {
+            "Distance": {
+              "type": "number",
+              "format": "double"
+            },
+            "RideWithGPSUrl": {
+              "type": "string"
+            },
+            "GroupRides": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GroupRideModel"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "GroupRideModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityModelBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "DateTime",
+            "Location",
+            "BikeRoute",
+            "BikeRouteId",
+            "RideType"
+          ],
+          "properties": {
+            "DateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "Location": {
+              "type": "string"
+            },
+            "BikeRoute": {
+              "$ref": "#/definitions/BikeRouteModel"
+            },
+            "BikeRouteId": {
+              "type": "string",
+              "format": "guid"
+            },
+            "RideType": {
+              "$ref": "#/definitions/RideType"
+            }
+          }
+        }
+      ]
     },
     "RideType": {
       "type": "integer",
@@ -215,6 +437,191 @@
         4,
         5,
         6
+      ]
+    },
+    "BikeRouteUpdateModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/UpdateModelBase"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "Distance": {
+              "type": "number",
+              "format": "double",
+              "maximum": 999.0,
+              "minimum": 0.1
+            },
+            "RideWithGPSUrl": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "UpdateModelBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidatableBase"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "ValidatableBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/SerializableBase"
+        },
+        {
+          "type": "object",
+          "x-abstract": true
+        }
+      ]
+    },
+    "BikeRouteCreateModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CreateModelBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "Distance",
+            "RideWithGPSUrl"
+          ],
+          "properties": {
+            "Distance": {
+              "type": "number",
+              "format": "double",
+              "maximum": 999.0,
+              "minimum": 0.1
+            },
+            "RideWithGPSUrl": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "CreateModelBase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidatableBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "Id"
+          ],
+          "properties": {
+            "Id": {
+              "type": "string",
+              "format": "guid",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "GroupRideViewModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ViewModelBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "DateTime",
+            "Location",
+            "BikeRoute",
+            "BikeRouteId",
+            "RideType"
+          ],
+          "properties": {
+            "DateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "Location": {
+              "type": "string"
+            },
+            "BikeRoute": {
+              "$ref": "#/definitions/BikeRouteViewModel"
+            },
+            "BikeRouteId": {
+              "type": "string",
+              "format": "guid"
+            },
+            "RideType": {
+              "$ref": "#/definitions/RideType"
+            }
+          }
+        }
+      ]
+    },
+    "GroupRideUpdateModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/UpdateModelBase"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "DateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "Location": {
+              "type": "string"
+            },
+            "RideType": {
+              "$ref": "#/definitions/RideType"
+            },
+            "BikeRouteId": {
+              "type": "string",
+              "format": "guid"
+            }
+          }
+        }
+      ]
+    },
+    "GroupRideCreateModel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CreateModelBase"
+        },
+        {
+          "type": "object",
+          "required": [
+            "DateTime",
+            "Location",
+            "RideType",
+            "BikeRouteId"
+          ],
+          "properties": {
+            "DateTime": {
+              "type": "string",
+              "format": "date-time",
+              "minLength": 1
+            },
+            "Location": {
+              "type": "string",
+              "minLength": 1
+            },
+            "RideType": {
+              "$ref": "#/definitions/RideType"
+            },
+            "BikeRouteId": {
+              "type": "string",
+              "format": "guid",
+              "minLength": 1
+            }
+          }
+        }
       ]
     }
   }
