@@ -8,15 +8,17 @@ public static class DbInitializer
     {
         if (!context.GroupRides.Any())
         {
-            var route1 = new BikeRoute { Id = Guid.NewGuid(), Distance = Random.Shared.NextDouble() * 30.0, RideWithGPSUrl = "First Route" };
-            var route2 = new BikeRoute { Id = Guid.NewGuid(), Distance = Random.Shared.NextDouble() * 20.0, RideWithGPSUrl = "Second Route" };
-            var rides = new GroupRide[]
+            var route1 = new BikeRouteModel { Id = Guid.NewGuid(), Distance = Random.Shared.NextDouble() * 30.0, RideWithGPSUrl = "First Route" };
+            var route2 = new BikeRouteModel { Id = Guid.NewGuid(), Distance = Random.Shared.NextDouble() * 20.0, RideWithGPSUrl = "Second Route" };
+            var rides = new GroupRideModel[]
             {
-                new GroupRide { Id = Guid.NewGuid(), DateTime = DateTime.Now, Location = "Elmwood", BikeRoute = route1, RideType = RideType.A },
-                new GroupRide { Id = Guid.NewGuid(), DateTime = DateTime.Now, Location = "Niagara", BikeRoute = route2, RideType = RideType.BSweaty },
-                new GroupRide { Id = Guid.NewGuid(), DateTime = DateTime.Now, Location = "Niagara", BikeRoute = route2, RideType = RideType.BChatty},
-                new GroupRide { Id = Guid.NewGuid(), DateTime = DateTime.Now, Location = "Gravel Gravel", RideType = RideType.D }
+                GroupRideModel.Create( new GroupRideCreateModel{ DateTime = DateTime.Now, Location = "Elmwood", BikeRouteId = route1.Id, RideType = RideType.A}),
+                GroupRideModel.Create( new GroupRideCreateModel{ DateTime = DateTime.Now, Location = "Niagara", BikeRouteId = route2.Id, RideType = RideType.BSweaty}),
+                GroupRideModel.Create( new GroupRideCreateModel{ DateTime = DateTime.Now, Location = "Niagara", BikeRouteId = route2.Id, RideType = RideType.BChatty}),
+                GroupRideModel.Create( new GroupRideCreateModel{ DateTime = DateTime.Now, Location = "Gravel Gravel", BikeRouteId = Guid.Empty, RideType = RideType.D})
             };
+            context.BikeRoutes.Add(route1);
+            context.BikeRoutes.Add(route2);
             context.GroupRides.AddRange(rides);
             await context.SaveChangesAsync();
         }
