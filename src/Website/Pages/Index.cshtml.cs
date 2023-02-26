@@ -14,11 +14,11 @@ public class IndexModel : PageModel
         _client = client;
     }
 
-    public IEnumerable<RidingBikes.APIClient.GroupRide> Rides { get; set; } = new List<RidingBikes.APIClient.GroupRide>();
+    public IEnumerable<RidingBikes.APIClient.GroupRideViewModel> Rides { get; set; } = new List<RidingBikes.APIClient.GroupRideViewModel>();
 
     public async Task OnGetAsync()
     {
-        var result = await _client.GroupRides_GetGroupRidesAsync();
+        var result = await _client.GroupRides_GetAllGroupRidesAsync();
         Rides = result;
     }
 }
