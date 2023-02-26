@@ -10,111 +10,135 @@ namespace RidingBikes.API.Controllers
     public class GroupRidesController : ControllerBase
     {
         private readonly RidingBikesContext _context;
+        private readonly ILogger<GroupRidesController> _logger;
 
-        public GroupRidesController(RidingBikesContext context)
+        public GroupRidesController(RidingBikesContext context, ILogger<GroupRidesController> logger)
         {
+            _logger = logger;
             _context = context;
         }
 
-        // GET: api/GroupRides
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GroupRide>>> GetGroupRides()
+        [ProducesResponseType(typeof(IEnumerable<GroupRideViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<GroupRideViewModel>>> GetAllGroupRides()
         {
-          if (_context.GroupRides == null)
-          {
-              return NotFound();
-          }
-            return await _context.GroupRides.Include(ride => ride.BikeRoute).ToListAsync();
-            // return await _context.GroupRides.ToListAsync();
+            if (_context.GroupRides == null)
+            {
+                return NotFound("No Rides in the system");
+            }
+            var groupRides = await _context.GroupRides.Include(ride => ride.BikeRoute).Select(gr => GroupRideViewModel.Create(gr)).ToListAsync();
+
+            return groupRides;
+            
         }
 
-        // GET: api/GroupRides/5
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<GroupRide>> GetGroupRide([FromRoute] Guid id)
+        [ProducesResponseType(typeof(GroupRideViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<GroupRideViewModel>> GetGroupRide([FromRoute] Guid id)
         {
-          if (_context.GroupRides == null)
-          {
-              return NotFound();
-          }
-            var groupRide = await _context.GroupRides.FindAsync(id);
+            if (_context.GroupRides == null)
+            {
+                return NotFound("No Rides in the system");
+            }
+            var groupRide = await _context.GroupRides.Include(ride => ride.BikeRoute).FirstOrDefaultAsync(gr => gr.Id == id);
 
             if (groupRide == null)
             {
-                return NotFound();
+                return NotFound($"Ride Id {id} not found");
             }
-
-            return groupRide;
+            var viewModel = GroupRideViewModel.Create(groupRide);
+            _logger.LogDebug("View Model {ViewModel}", viewModel);
+            return viewModel;
         }
 
-        // PUT: api/GroupRides/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> PutGroupRide([FromRoute] Guid id, [FromBody] GroupRide groupRide)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateGroupRide([FromRoute] Guid id, [FromBody] GroupRideUpdateModel groupRideUpdateModel)
         {
-            if (id != groupRide.Id)
+            _logger.LogTrace("Searching for GroupRide {GroupRideId}", id);
+            var groupRide = await _context.GroupRides.FindAsync(id);
+            if(groupRide == null)
             {
-                return BadRequest();
+                _logger.LogWarning("Ride Id {GroupRideId} not found", id);
+                return NotFound($"Ride Id {id} not found");
             }
-
-            _context.Entry(groupRide).State = EntityState.Modified;
-
-            try
+            _logger.LogTrace("Checking for update");
+            if (groupRide.Update(groupRideUpdateModel))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupRideExists(id))
+                _logger.LogTrace("Saving changes");
+                _context.Entry(groupRide).State = EntityState.Modified;
+                try
                 {
-                    return NotFound();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    _logger.LogError(ex, "Error saving changes");
+                    return Problem();
                 }
             }
 
             return NoContent();
         }
 
-        // POST: api/GroupRides
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //TODO To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<GroupRide>> PostGroupRide([FromBody] GroupRide groupRide)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public async Task<ActionResult<GroupRideViewModel>> CreateGroupRide([FromBody] GroupRideCreateModel createModel)
         {
-          if (_context.GroupRides == null)
-          {
-              return Problem("Entity set 'GroupRideContext.GroupRides'  is null.");
-          }
+            if (_context.GroupRides == null)
+            {
+                return Problem("Entity set 'GroupRideContext.GroupRides'  is null.");
+            }
+            var existingRide = await _context.GroupRides.FindAsync(createModel.Id);
+            if(existingRide != null)
+            {
+                return Conflict($"Group Ride with Id {createModel.Id} already exists. Did you mean to update it?");
+            }
+
+            var bikeRoute = await _context.BikeRoutes.FindAsync(createModel.BikeRouteId);
+            if(bikeRoute == null)
+            {
+                return new BadRequestObjectResult($"Bike Route with Id {createModel.BikeRouteId} does not exist. Unable to reference for a group ride");
+            }
+
+            var groupRide = GroupRideModel.Create(createModel);
+            groupRide.BikeRoute = bikeRoute;
+
+            //TODO wrap in try?            
             _context.GroupRides.Add(groupRide);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGroupRide", new { id = groupRide.Id }, groupRide);
+            return CreatedAtAction(nameof(CreateGroupRide), new { id = groupRide.Id }, GroupRideViewModel.Create(groupRide));
         }
 
-        // DELETE: api/GroupRides/5
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteGroupRide(Guid id)
         {
             if (_context.GroupRides == null)
             {
-                return NotFound();
+                return NotFound("No Rides in the system");
             }
             var groupRide = await _context.GroupRides.FindAsync(id);
             if (groupRide == null)
             {
-                return NotFound();
+                return NotFound($"Ride Id {id} not found");
             }
 
             _context.GroupRides.Remove(groupRide);
+            //TODO try catch?
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool GroupRideExists(Guid id)
-        {
-            return (_context.GroupRides?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
