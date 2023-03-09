@@ -1,4 +1,6 @@
 using RidingBikes.Common.Models;
+using RidingBikes.Common.Models.BikeRouteModels;
+using RidingBikes.Common.Models.GroupRideModels;
 
 namespace RidingBikes.API.DatabaseContext;
 

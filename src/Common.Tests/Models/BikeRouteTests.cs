@@ -1,5 +1,6 @@
 using System;
 using RidingBikes.Common.Models;
+using RidingBikes.Common.Models.BikeRouteModels;
 using Xunit;
 
 namespace RidingBikes.Common.Tests.Models;

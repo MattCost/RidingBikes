@@ -1,10 +1,7 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json;
-using RidingBikes.Common.Attributes;
 using RidingBikes.Common.Models.Base;
+using RidingBikes.Common.Models.BikeRouteModels;
 
-namespace RidingBikes.Common.Models;
+namespace RidingBikes.Common.Models.GroupRideModels;
 
 public class GroupRideViewModel : ViewModelBase
 {

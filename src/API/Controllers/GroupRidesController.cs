@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RidingBikes.API.DatabaseContext;
 using RidingBikes.Common.Models;
+using RidingBikes.Common.Models.GroupRideModels;
 
 namespace RidingBikes.API.Controllers
 {

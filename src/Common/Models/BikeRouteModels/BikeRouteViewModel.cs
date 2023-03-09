@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using RidingBikes.Common.Models.Base;
 
-namespace RidingBikes.Common.Models;
+namespace RidingBikes.Common.Models.BikeRouteModels;
 
 public class BikeRouteViewModel : ViewModelBase
 {

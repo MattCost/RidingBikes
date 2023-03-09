@@ -3,17 +3,19 @@ using RidingBikes.Common.Attributes;
 
 namespace RidingBikes.Common.Models.Base;
 
-public abstract class EntityModelBase : SerializableBase
+public abstract class EntityModelBase<TCreateModel, TUpdateModel> : SerializableBase
+    where TCreateModel : CreateModelBase
+    where TUpdateModel : UpdateModelBase
 {
     public Guid Id { get; set; }
 
-    public virtual void Initialize(CreateModelBase createModel)
+    public virtual void Initialize(TCreateModel createModel)
     {
         createModel.IsValid();
         this.Id = createModel.Id;
     }
 
-    public virtual bool Update(UpdateModelBase updateModel)
+    public virtual bool Update(TUpdateModel updateModel)
     {
         updateModel.IsValid();
         return false;

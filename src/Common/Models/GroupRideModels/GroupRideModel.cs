@@ -3,9 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using RidingBikes.Common.Attributes;
 using RidingBikes.Common.Models.Base;
+using RidingBikes.Common.Models.BikeRouteModels;
 
-namespace RidingBikes.Common.Models;
-public class GroupRideModel : EntityModelBase
+namespace RidingBikes.Common.Models.GroupRideModels;
+
+public class GroupRideModel : EntityModelBase<GroupRideCreateModel, GroupRideUpdateModel>
 {
     public DateTime DateTime { get; set; }
     public string Location { get; set; } = string.Empty;
@@ -26,7 +28,7 @@ public class GroupRideModel : EntityModelBase
         return ride;
 
     }
-    public void Initialize(GroupRideCreateModel createModel)
+    public override void Initialize(GroupRideCreateModel createModel)
     {
         base.Initialize(createModel);
         this.DateTime = createModel.DateTime;
@@ -35,7 +37,7 @@ public class GroupRideModel : EntityModelBase
         this.RideType = createModel.RideType;
     }
 
-    public bool Update(GroupRideUpdateModel updateModel)
+    public override bool Update(GroupRideUpdateModel updateModel)
     {
         bool isUpdated = false;
         if (updateModel.BikeRouteId.HasValue)

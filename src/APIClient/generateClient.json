@@ -11,9 +11,9 @@
             "namespace": "RidingBikes.APIClient",
             "generateClientClasses": true,
             "generateClientInterfaces": true,
-            "GenerateDtoTypes" : true,
+            "GenerateDtoTypes" : false,
             "operationGenerationMode": "SingleClientFromOperationId",
-            "AdditionalNamespaceUsages": [ "RidingBikes.Common.Models" ]
+            "AdditionalNamespaceUsages": [ "RidingBikes.Common.Models.BikeRouteModels", "RidingBikes.Common.Models.GroupRideModels" ]
             
         }
     }

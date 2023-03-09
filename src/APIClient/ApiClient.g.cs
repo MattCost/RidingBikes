@@ -4,7 +4,8 @@
 // </auto-generated>
 //----------------------
 
-using RidingBikes.Common.Models;
+using RidingBikes.Common.Models.BikeRouteModels;
+using RidingBikes.Common.Models.GroupRideModels;
 
 #pragma warning disable 108 // Disable "CS0108 '{derivedDto}.ToJson()' hides inherited member '{dtoBase}.ToJson()'. Use the new keyword if hiding was intended."
 #pragma warning disable 114 // Disable "CS0114 '{derivedDto}.RaisePropertyChanged(String)' hides inherited member 'dtoBase.RaisePropertyChanged(String)'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword."
@@ -668,6 +669,12 @@ namespace RidingBikes.APIClient
                             return;
                         }
                         else
+                        if (status_ == 400)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
                         if (status_ == 500)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -1040,203 +1047,7 @@ namespace RidingBikes.APIClient
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BikeRouteViewModel : ViewModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("Distance", Required = Newtonsoft.Json.Required.Always)]
-        public double Distance { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideWithGPSUrl", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string RideWithGPSUrl { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public abstract partial class ViewModelBase : EntityModelBase
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public abstract partial class EntityModelBase : SerializableBase
-    {
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.Guid Id { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public abstract partial class SerializableBase
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BikeRouteModel : EntityModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("Distance", Required = Newtonsoft.Json.Required.Always)]
-        public double Distance { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideWithGPSUrl", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string RideWithGPSUrl { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("GroupRides", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<GroupRideModel> GroupRides { get; set; } = new System.Collections.ObjectModel.Collection<GroupRideModel>();
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GroupRideModel : EntityModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("DateTime", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset DateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Location", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Location { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("BikeRoute", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public BikeRouteModel BikeRoute { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("BikeRouteId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.Guid BikeRouteId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideType", Required = Newtonsoft.Json.Required.Always)]
-        public RideType RideType { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum RideType
-    {
-
-        A = 1,
-
-        B2A = 2,
-
-        BSweaty = 3,
-
-        BChatty = 4,
-
-        C = 5,
-
-        D = 6,
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BikeRouteUpdateModel : UpdateModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("Distance", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        [System.ComponentModel.DataAnnotations.Range(0.1D, 999.0D)]
-        public double? Distance { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideWithGPSUrl", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string RideWithGPSUrl { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class UpdateModelBase : ValidatableBase
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public abstract partial class ValidatableBase : SerializableBase
-    {
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class BikeRouteCreateModel : CreateModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("Distance", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Range(0.1D, 999.0D)]
-        public double Distance { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideWithGPSUrl", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string RideWithGPSUrl { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class CreateModelBase : ValidatableBase
-    {
-        [Newtonsoft.Json.JsonProperty("Id", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Guid Id { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GroupRideViewModel : ViewModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("DateTime", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset DateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Location", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Location { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("BikeRoute", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public BikeRouteViewModel BikeRoute { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("BikeRouteId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.Guid BikeRouteId { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideType", Required = Newtonsoft.Json.Required.Always)]
-        public RideType RideType { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GroupRideUpdateModel : UpdateModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("DateTime", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.DateTimeOffset? DateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Location", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Location { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideType", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public RideType? RideType { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("BikeRouteId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Guid? BikeRouteId { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class GroupRideCreateModel : CreateModelBase
-    {
-        [Newtonsoft.Json.JsonProperty("DateTime", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.DateTimeOffset DateTime { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("Location", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string Location { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("RideType", Required = Newtonsoft.Json.Required.Always)]
-        public RideType RideType { get; set; }
-
-        [Newtonsoft.Json.JsonProperty("BikeRouteId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Guid BikeRouteId { get; set; }
-
-    }
+    
 
 
 

@@ -4,7 +4,7 @@ using System.Text.Json;
 using RidingBikes.Common.Attributes;
 using RidingBikes.Common.Models.Base;
 
-namespace RidingBikes.Common.Models;
+namespace RidingBikes.Common.Models.GroupRideModels;
 
 public class GroupRideUpdateModel : UpdateModelBase
 {
