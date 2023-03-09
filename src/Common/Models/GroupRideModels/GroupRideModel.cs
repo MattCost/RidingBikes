@@ -39,7 +39,8 @@ public class GroupRideModel : EntityModelBase<GroupRideCreateModel, GroupRideUpd
 
     public override bool Update(GroupRideUpdateModel updateModel)
     {
-        bool isUpdated = false;
+        bool isUpdated = base.Update(updateModel);
+        
         if (updateModel.BikeRouteId.HasValue)
         {
             if (this.BikeRouteId.CheckForUpdate(updateModel.BikeRouteId.Value))
