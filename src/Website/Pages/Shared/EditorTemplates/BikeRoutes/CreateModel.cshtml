@@ -1,0 +1,19 @@
+@model RidingBikes.Common.Models.BikeRouteCreateModel
+
+<div class="row">
+    <div class="col-1">
+        @Html.DisplayNameFor( m => m.Distance)
+    </div>
+    <div class="col-2">
+        @Html.EditorFor( m => m.Distance)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-1">
+        @Html.DisplayNameFor( m => m.RideWithGPSUrl)
+    </div>
+    <div class="col-2">
+        @Html.EditorFor( m => m.RideWithGPSUrl)
+    </div>
+</div>

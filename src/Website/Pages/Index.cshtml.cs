@@ -1,24 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RidingBikes.Website.PageModels;
 
-namespace Website.Pages;
+namespace RidingBikes.Website.Pages;
 
-public class IndexModel : PageModel
+public class IndexModel : PageModelBase
 {
-    private readonly ILogger<IndexModel> _logger;
-    private readonly RidingBikes.APIClient.IClient _client;
 
-    public IndexModel(ILogger<IndexModel> logger, RidingBikes.APIClient.IClient client)
+    public IndexModel(RidingBikes.APIClient.IClient client, ILogger<IndexModel> logger) : base(client, logger)
     {
-        _logger = logger;
-        _client = client;
     }
 
-    public IEnumerable<RidingBikes.APIClient.GroupRideViewModel> Rides { get; set; } = new List<RidingBikes.APIClient.GroupRideViewModel>();
-
-    public async Task OnGetAsync()
+    public void OnGet()
     {
-        var result = await _client.GroupRides_GetAllGroupRidesAsync();
-        Rides = result;
+
     }
 }

@@ -23,7 +23,7 @@ public class GroupRideTests
         ex = Assert.ThrowsAny<Exception>(() => createModel.IsValid());
 
         createModel.BikeRouteId = Guid.NewGuid();
-        createModel.DateTime = DateTime.Now;
+        createModel.StartTime = TimeOnly.FromDateTime(DateTime.UtcNow);
         createModel.Location = "nowhere";
         createModel.RideType = RideType.B2A;
         createModel.IsValid();

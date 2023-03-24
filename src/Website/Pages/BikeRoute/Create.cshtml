@@ -1,0 +1,13 @@
+@page
+@namespace RidingBikes.Website.Pages.BikeRoute
+@model CreatePageModel
+@{
+}
+<div class="row">
+    Create a new bike route
+</div>
+@using (Html.BeginForm())
+{
+@Html.EditorFor(model => model.createModel, "BikeRoutes/CreateModel");
+<input id = "Submit" type = "submit" value = "submit" />
+}

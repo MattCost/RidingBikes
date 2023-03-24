@@ -9,7 +9,8 @@ namespace RidingBikes.Common.Models.GroupRideModels;
 
 public class GroupRideModel : EntityModelBase<GroupRideCreateModel, GroupRideUpdateModel>
 {
-    public DateTime DateTime { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public TimeOnly StartTime { get; set; }
     public string Location { get; set; } = string.Empty;
     public BikeRouteModel BikeRoute
     {
@@ -31,7 +32,7 @@ public class GroupRideModel : EntityModelBase<GroupRideCreateModel, GroupRideUpd
     public override void Initialize(GroupRideCreateModel createModel)
     {
         base.Initialize(createModel);
-        this.DateTime = createModel.DateTime;
+        this.StartTime = createModel.StartTime;
         this.Location = createModel.Location;
         this.BikeRouteId = createModel.BikeRouteId;
         this.RideType = createModel.RideType;
@@ -49,11 +50,11 @@ public class GroupRideModel : EntityModelBase<GroupRideCreateModel, GroupRideUpd
                 isUpdated = true;
             }
         }
-        if (updateModel.DateTime.HasValue)
+        if (updateModel.StartTime.HasValue)
         {
-            if (this.DateTime.CheckForUpdate(updateModel.DateTime.Value))
+            if (this.StartTime.CheckForUpdate(updateModel.StartTime.Value))
             {
-                this.DateTime = updateModel.DateTime.Value;
+                this.StartTime = updateModel.StartTime.Value;
                 isUpdated = true;
             }
         }

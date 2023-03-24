@@ -5,7 +5,7 @@ namespace RidingBikes.Common.Models.GroupRideModels;
 
 public class GroupRideViewModel : ViewModelBase
 {
-    public DateTime DateTime { get; set; }
+    public TimeOnly StartTime { get; set; }
     public string Location { get; set; } = string.Empty;
     public BikeRouteViewModel BikeRoute { get; set; } = new BikeRouteViewModel();
     public Guid BikeRouteId { get { return BikeRoute.Id; } }
@@ -17,7 +17,7 @@ public class GroupRideViewModel : ViewModelBase
         var viewModel = new GroupRideViewModel
         {
             Id = groupRide.Id,
-            DateTime = groupRide.DateTime,
+            StartTime = groupRide.StartTime,
             Location = groupRide.Location,
             RideType = groupRide.RideType
         };

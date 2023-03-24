@@ -8,7 +8,7 @@ namespace RidingBikes.Common.Models.GroupRideModels;
 
 public class GroupRideUpdateModel : UpdateModelBase
 {
-    public DateTime? DateTime { get; set; } = null;
+    public TimeOnly? StartTime { get; set; } = null;
     public string? Location { get; set; } = null;
     public RideType? RideType { get; set; } = null;
     public Guid? BikeRouteId { get; set; } = null;

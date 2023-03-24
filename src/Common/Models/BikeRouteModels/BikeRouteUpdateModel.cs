@@ -9,4 +9,5 @@ public class BikeRouteUpdateModel : UpdateModelBase
     public double? Distance { get; set; } = null;
     public string? RideWithGPSUrl { get; set; }
 
+    public string? Description { get; set; }
 }

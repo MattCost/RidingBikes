@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model RidingBikes.Website.PageModels.PageModelBase
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Website</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,11 +21,68 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+
+                        @if(Model.DisplayCurrentError || Model.DisplayPreviousError)
+                        {
+                            <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                Error
+                            </button>
+                            <ul class="dropdown-menu">
+                                @if(Model.DisplayCurrentError)
+                                {
+                                    <li class="dropdown-item" >@Html.DisplayFor(model => model.CurrentPageErrorMessage)</li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li class="dropdown-item">url: @Html.DisplayFor(model => model.CurrentPageAction)</li>
+                                    <li><hr class="dropdown-divider"></li>
+                                }
+                                @if(Model.DisplayPreviousError)
+                                {
+                                    <li class="dropdown-item">@Html.DisplayFor(model => model.PreviousPageErrorMessage)</li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li class="dropdown-item">url: @Html.DisplayFor(model => model.PreviousPageAction)</li>
+                                }                                
+                            </ul>
+                            </div>                    
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Person
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/Person/Index">Overview</a></li>
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/Person/Create">Create New</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Group Ride Event
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/GroupRideEvent/Index">Overview</a></li>
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/GroupRideEvent/Create">Create New</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Rides
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/GroupRide/Index">Overview</a></li>
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/GroupRide/Create">Create New</a></li>
+                            </ul>
+                        </li>                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Routes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/BikeRoute/Index">Overview</a></li>
+                                <li><a class="dropdown-item nav-link text-dark" asp-page="/BikeRoute/Create">Create New</a></li>
+                            </ul>
+                        </li>    
                     </ul>
                 </div>
             </div>
@@ -38,7 +96,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - Website - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - Website - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 

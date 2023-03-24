@@ -7,14 +7,19 @@ namespace RidingBikes.Common.Models.BikeRouteModels;
 public class BikeRouteModel : EntityModelBase<BikeRouteCreateModel, BikeRouteUpdateModel>
 {
     public double Distance { get; set; }
+    public string Description { get; set; } = string.Empty;
     public string RideWithGPSUrl { get; set; } = string.Empty;
     public ICollection<GroupRideModel> GroupRides { get; set; } = new HashSet<GroupRideModel>();
+
+    // TODO List of Cues
+    // TODO List of Waypoints (can we export a gpx file?)
 
     public override void Initialize(BikeRouteCreateModel createModel)
     {
         base.Initialize(createModel);
         this.Distance = createModel.Distance;
         this.RideWithGPSUrl = createModel.RideWithGPSUrl;
+        this.Description = createModel.Description;
     }
 
     public override bool Update(BikeRouteUpdateModel updateModel)
@@ -36,6 +41,15 @@ public class BikeRouteModel : EntityModelBase<BikeRouteCreateModel, BikeRouteUpd
             if(this.RideWithGPSUrl.CheckForUpdate(updateModel.RideWithGPSUrl))
             {
                 this.RideWithGPSUrl = updateModel.RideWithGPSUrl;
+                isUpdated = true;
+            }
+        }
+
+        if(!string.IsNullOrEmpty(updateModel.Description))
+        {
+            if(this.Description.CheckForUpdate(updateModel.Description))
+            {
+                this.Description = updateModel.Description;
                 isUpdated = true;
             }
         }

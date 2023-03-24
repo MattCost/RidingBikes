@@ -8,7 +8,7 @@ namespace RidingBikes.Common.Models.GroupRideModels;
 public class GroupRideCreateModel : CreateModelBase
 {
     [Required]
-    public DateTime DateTime { get; set; }
+    public TimeOnly StartTime { get; set; }
 
     [Required]
     public string Location { get; set; } = string.Empty;
