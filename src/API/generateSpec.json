@@ -1,10 +1,10 @@
 {
-    "runtime": "Net60",
+    "runtime": "Net70",
     "documentGenerator": {
         "webApiToOpenApi": {
             "isAspNetCore" : true,
             "noBuild" : true,
-            "assemblyPaths" : ["bin/Debug/net6.0/API.dll"],
+            "assemblyPaths" : ["bin/Debug/net7.0/API.dll"],
             "output" : "swagger.json"
         }
     }

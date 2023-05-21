@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NSwag.MSBuild" Version="13.18.0">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NSwag.MSBuild" Version="13.19.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>    
@@ -20,6 +20,6 @@
 
   <Target Name="GenerateClient" AfterTargets="ResolveReferences">
     <Message Text="Generating Api Client via nswag!" Importance="High" />
-    <Exec Command="$(NSwagExe_Net60) run generateClient.json " />
+    <Exec Command="$(NSwagExe_Net70) run generateClient.json " />
   </Target>
 </Project>

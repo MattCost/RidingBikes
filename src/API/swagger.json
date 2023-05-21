@@ -1,5 +1,5 @@
 {
-  "x-generator": "NSwag v13.18.0.0 (NJsonSchema v10.8.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "x-generator": "NSwag v13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))",
   "swagger": "2.0",
   "info": {
     "title": "My Title",
@@ -351,6 +351,7 @@
           "type": "object",
           "required": [
             "Distance",
+            "Description",
             "RideWithGPSUrl",
             "GroupRides"
           ],
@@ -358,6 +359,9 @@
             "Distance": {
               "type": "number",
               "format": "double"
+            },
+            "Description": {
+              "type": "string"
             },
             "RideWithGPSUrl": {
               "type": "string"
@@ -380,16 +384,20 @@
         {
           "type": "object",
           "required": [
-            "DateTime",
+            "Description",
+            "StartTime",
             "Location",
             "BikeRoute",
             "BikeRouteId",
             "RideType"
           ],
           "properties": {
-            "DateTime": {
+            "Description": {
+              "type": "string"
+            },
+            "StartTime": {
               "type": "string",
-              "format": "date-time"
+              "format": "time"
             },
             "Location": {
               "type": "string"
@@ -437,12 +445,16 @@
           "type": "object",
           "x-abstract": true,
           "required": [
-            "Id"
+            "Id",
+            "Name"
           ],
           "properties": {
             "Id": {
               "type": "string",
               "format": "guid"
+            },
+            "Name": {
+              "type": "string"
             }
           }
         }
@@ -457,12 +469,16 @@
           "type": "object",
           "x-abstract": true,
           "required": [
-            "Id"
+            "Id",
+            "Name"
           ],
           "properties": {
             "Id": {
               "type": "string",
               "format": "guid"
+            },
+            "Name": {
+              "type": "string"
             }
           }
         }
@@ -484,6 +500,9 @@
             },
             "RideWithGPSUrl": {
               "type": "string"
+            },
+            "Description": {
+              "type": "string"
             }
           }
         }
@@ -495,7 +514,12 @@
           "$ref": "#/definitions/ValidatableBase"
         },
         {
-          "type": "object"
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": "string"
+            }
+          }
         }
       ]
     },
@@ -519,7 +543,8 @@
           "type": "object",
           "required": [
             "Distance",
-            "RideWithGPSUrl"
+            "RideWithGPSUrl",
+            "Description"
           ],
           "properties": {
             "Distance": {
@@ -531,6 +556,9 @@
             "RideWithGPSUrl": {
               "type": "string",
               "minLength": 1
+            },
+            "Description": {
+              "type": "string"
             }
           }
         }
@@ -544,12 +572,17 @@
         {
           "type": "object",
           "required": [
-            "Id"
+            "Id",
+            "Name"
           ],
           "properties": {
             "Id": {
               "type": "string",
               "format": "guid",
+              "minLength": 1
+            },
+            "Name": {
+              "type": "string",
               "minLength": 1
             }
           }
@@ -564,16 +597,16 @@
         {
           "type": "object",
           "required": [
-            "DateTime",
+            "StartTime",
             "Location",
             "BikeRoute",
             "BikeRouteId",
             "RideType"
           ],
           "properties": {
-            "DateTime": {
+            "StartTime": {
               "type": "string",
-              "format": "date-time"
+              "format": "time"
             },
             "Location": {
               "type": "string"
@@ -600,9 +633,9 @@
         {
           "type": "object",
           "properties": {
-            "DateTime": {
+            "StartTime": {
               "type": "string",
-              "format": "date-time"
+              "format": "time"
             },
             "Location": {
               "type": "string"
@@ -626,15 +659,15 @@
         {
           "type": "object",
           "required": [
-            "DateTime",
+            "StartTime",
             "Location",
             "RideType",
             "BikeRouteId"
           ],
           "properties": {
-            "DateTime": {
+            "StartTime": {
               "type": "string",
-              "format": "date-time",
+              "format": "time",
               "minLength": 1
             },
             "Location": {
