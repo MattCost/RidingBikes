@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RidingBikes.APIClient;
 using RidingBikes.Common.Models;
+using RidingBikes.Common.Models.BikeRouteModels;
 using RidingBikes.Website.PageModels;
 
 namespace RidingBikes.Website.Pages.BikeRoute
